@@ -1,0 +1,11 @@
+<models>
+	<users>
+		<field id="name" title="Name" type="char" />
+		<field id="paycheck" title="Salary" type="int" />
+		<field id="date_joined" title="Date of coming to work" type="date" />
+	</users>
+	<rooms>
+		<field id="department" title="Department" type="char" />
+		<field id="spots" title="Capacity" type="int" />
+	</rooms>
+</models>

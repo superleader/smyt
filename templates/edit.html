@@ -1,0 +1,69 @@
+{% load staticfiles %}
+<html>
+	<head>
+		<title>42 Coffee Cups Test Assignment</title>
+		<style>
+			.error{color:red;}
+		</style>
+		<script type="text/javascript" src="/static/js/jquery-1.10.2.js"></script>
+		<script type="text/javascript" src="/static/js/jquery.form.js"></script>
+		{{ calendar.media }}
+		<script>
+			$(function(){
+			    $('#edit_form').submit(function(e){  
+			    	$(this).hide()
+			    	$('#ajax-loader').show()
+			    	$(this).ajaxSubmit({dataType : 'json', success: function(o) {
+			    		$('#ajax-loader').hide()
+			    		$('#edit_form').show()
+			            $('.error, #form_state').empty()
+			            if(o.result == 1)
+			                $('#form_state').html('Person was successfully updated')
+			            else
+			                if(typeof(o.errors) != undefined)
+			                    for(i in o.errors)
+			                        $('#' + i + '_error').html(o.errors[i][0]) 
+			        }})
+			        
+			        return false;        
+			    })
+			})
+		</script>
+	</head>
+	<body>
+		<h3>42 Coffee Cups Test Assignment</h3>
+		<div id="form_state" ></div>
+		<div id="ajax-loader" style="display:none;">
+			<img src="/static/images/ajax-loader.gif">
+		</div>
+		<form method="POST" action="{% url 'save-profile' %}" enctype="multipart/form-data" id="edit_form">
+		{% csrf_token %}
+		<div style="height:600px;">
+			<div style="float:left;">
+				<div id="name_error" class="error"></div>
+				<p>Name: {{ form.name }}</p>
+				<div id="surname_error" class="error" ></div>
+				<p>Last name: {{ form.surname }}</p>
+				<div id="date_error" class="error"></div>
+				<p>Date of bith: {{ form.date }}</p>
+				<div id="photo_error" class="error"></div>
+				<p>Photo:{{ form.photo }}</p>
+				<div id="bio_error" class="error"></div>
+				<p>Bio: {{ form.bio }}</p>
+			</div>
+			<div style="float:right; width:55%">
+				<p>Contacts</p>
+				<div id="email_error" class="error"></div>
+				<p>Email: {{ form.email }}</p>
+				<div id="skype_error" class="error" ></div>
+				<p>Skype: {{ form.skype }}</p>
+				<div id="jabber_error" class="error" ></div>
+				<p>Jabber: {{ form.jabber }}</p>
+				<div id="contacts_error" class="error"></div>				
+				<p>Other Contacts: {{ form.contacts }}</p>
+			</div>
+		</div>
+		<input type="submit" value="Save" />
+		</form>
+	</body>
+</html>
