@@ -14,7 +14,7 @@
 		<script type="text/javascript" src="/static/js/main.js"></script>
 	</head>
 	<body>
-		<div>{% if generate_error %}<span class="error">Wrong file for construct models</span>{% elif request.method == 'POST'%}Models were successfuly updated{% endif %}</div>
+		<div>{% if generate_error %}<span class="error">Wrong file for construct models</span>{% elif request.FILES.xml %}Models were successfuly updated{% endif %}</div>
 		<div>
 			<form method="POST" enctype="multipart/form-data" >{% csrf_token %}
 				<input type="file" name="xml" />

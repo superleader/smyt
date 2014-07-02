@@ -16,7 +16,7 @@ $(function(){
 	            form.find('.error').empty()
 	            if(o.result == 1){
 	            	alert(form.attr('model') + ' was successfully created')
-	            	$('#model _' + form.attr('model')).click()         
+	            	$('#model_' + form.attr('model')).click()         
 	            }else
 	                if(typeof(o.errors) != undefined)
 	                    for(i in o.errors)
