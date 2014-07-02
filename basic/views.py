@@ -6,10 +6,13 @@ from django.http import Http404
 
 from dynamic.forms import *
 from dynamic.models import *
+from basic.modelgenerator import ModelGenerator
 
 
 @render_to('index.html')
 def index(request):
+	if request.FILES.get('xml'):
+		generate_error = not(ModelGenerator(request.FILES['xml']).run())
 	models = [ i._meta.object_name for i in get_models() \
 	           if i._meta.app_label == 'dynamic']
 	return locals()
